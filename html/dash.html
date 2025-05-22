@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditation Dashboard</title>
+    <link rel="stylesheet" href="../css/dash.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    
+<div class="dashboard">
+    <!-- Profile Card -->
+    <div class="card profile-card">
+        <img src="profile.png" alt="User Avatar" class="profile-img">
+        <h2>Adeline Watson</h2>
+        <p>ID: 1890274 | 24 Years old</p>
+        <div class="status">
+            <span>🔥 56 Days</span>
+            <span>🧘 Beginner</span>
+        </div>
+    </div>
+
+    <!-- Meditation Stats -->
+    <div class="card stat-card">
+        <h3>17 h 27 min</h3>
+        <p>Total Mediated Time</p>
+    </div>
+
+    <div class="stat-group">
+        <div class="card stat-card">
+            <h3>10</h3>
+            <p>Session Complete</p>
+        </div>
+        <div class="card stat-card">
+            <h3>32 min</h3>
+            <p>Average Duration</p>
+        </div>
+    </div>
+    
+
+    <!-- Emotional Focusing Chart -->
+    <div class="chart-container">
+        <canvas id="lineChart"></canvas>
+    </div>
+
+</div>
+
+
+<script>
+    // Get the canvas element
+    const ctx = document.getElementById('lineChart').getContext('2d');
+
+    // Data for the chart
+    const data = {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"], // X-axis labels (Months)
+        datasets: [
+        
+            {
+                label: "Social Media",
+                data: [200, 300, 500, 700, 900, 1100, 1300],
+                borderColor: "green",
+                backgroundColor: "rgba(0, 255, 0, 0.1)",
+                fill: true
+            },
+            {
+                label: "Referral",
+                data: [100, 150, 300, 400, 500, 700, 900],
+                borderColor: "purple",
+                backgroundColor: "rgba(128, 0, 128, 0.1)",
+                fill: true
+            }
+        ]
+    };
+
+    // Chart Configuration
+    const config = {
+        type: "line",
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Months",
+                        font: { size: 14 }
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: "Visitors",
+                        font: { size: 14 }
+                    },
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: { position: "top" },
+                tooltip: { enabled: true }
+            }
+        }
+    };
+
+    // Create the chart
+    new Chart(ctx, config);
+</script>
+</body>
+</html>

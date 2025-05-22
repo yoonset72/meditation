@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard UI</title>
+    <link rel="stylesheet" href="../css/emotiontomeditation.css">
+    <link rel="stylesheet" href="../css/10_days_challenges.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .tasks {
+        position: absolute;
+        left: 57.2%;
+        /* Shifted slightly to the right */
+        transform: translateX(-50%);
+        /* Keeps it relatively centered */
+        flex-grow: 0;
+        margin-top: 20px;
+        background-color: #B3C8CF;
+        padding: 50px;
+        border-radius: 55px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+        flex-direction: column;
+        width: 80.5%;
+        height: 73%;
+        top: 24%;
+    }
+</style>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <div class="logo"></div>
+            <a href="home.html">
+                <h2>Elysian</h2>
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li class="">
+                <a href="../html/home.html">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li>
+                <a href="../html/sound.html">
+                    <i class="fa-solid fa-music"></i>Sound
+                </a>
+            </li>
+
+            <li>
+                <a href="MyJourney.html">
+                    <i class="fa-solid fa-flag"></i>My Journey
+                </a>
+            </li>
+            <li>
+                <a href="setting.html">
+                    <i class="fas fa-user"></i> My Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="upgrade">
+            <img src="../img2/Enthusiastic-pana.svg" alt="Upgrade Icon">
+            <p>Let's upgrade your plan</p>
+            <button>Upgrade</button>
+        </div>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Hi, Illiden! </h1><br>
+            <p>Let's help you stay on top of your health</p>
+            <!-- <div class="profile-info">
+                <p>Your wellness guide</p>
+                <span>Female, 21 years old</span>
+            </div> -->
+        </div>
+
+        <!-- Task Section -->
+        <div class="tasks">
+            <h1 id="main-title">10 Days Challenge</h1>
+
+            <!-- Card Container -->
+            <div id="card-container" class="card-container"></div>
+
+            <!-- Pagination -->
+            <div id="pagination" class="pagination"></div>
+
+            <!-- Dynamic Content for Each Day -->
+            <h2 id="day-title"></h2>
+            <div id="dynamic-content">
+                <div id="poetic-reflection">
+                    <p id="poetic-text" class="poem"></p>
+                </div>
+                <div id="practical-notes" class="notes"></div>
+            </div>
+
+            <!-- Control Buttons -->
+            <div>
+                <button id="play-btn"><i class="fa-solid fa-play"></i></button>
+                <button id="pause-btn"><i class="fa-solid fa-pause"></i></button>
+                <button id="back-btn"><i class="fa-solid fa-xmark"></i></i></button>
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+        const cardContainer = document.getElementById("card-container");
+        const paginationContainer = document.getElementById("pagination");
+        const dynamicContent = document.getElementById("dynamic-content");
+        const mainTitle = document.getElementById("main-title");
+        const dayTitle = document.getElementById("day-title");
+        const poeticText = document.getElementById("poetic-text");
+        const practicalNotes = document.getElementById("practical-notes");
+        const playBtn = document.getElementById("play-btn");
+        const pauseBtn = document.getElementById("pause-btn");
+        const backBtn = document.getElementById("back-btn");
+
+        const cardsPerPage = 3;
+        let currentPage = 1;
+        let speechSynthesisUtterance;
+
+        // Data for the 10 days
+        const daysData = [
+            {
+                title: "🌅 Day 1: Morning Awareness",
+                poetic: "In the quiet of dawn, I awaken,\nBreathing in peace, my heart unshaken.\nThe world stirs gently, a new day's grace,\nI greet it with presence, in this sacred space.",
+                practical: [
+                    "1) Upon waking, take a few deep breaths to center yourself.",
+                    "2) Notice the sensations in your body without judgment.",
+                    "3) Set a gentle intention for the day ahead.",
+                    "4) Avoid reaching for your phone immediately; allow your mind to settle.",
+                    "5) Express gratitude for the new day and the opportunities it brings."
+                ]
+            },
+            {
+                title: "🍽️ Day 2: Mindful Eating",
+                poetic: "Each bite a journey, each taste a song,\nI savor the flavors, where I belong.\nWith every chew, I find delight,\nIn mindful eating, my senses take flight.",
+                practical: [
+                    "1) Eat one meal today without distractions.",
+                    "2) Chew slowly, noticing the textures and flavors.",
+                    "3) Pay attention to your body's hunger and fullness cues.",
+                    "4) Express gratitude for the nourishment provided.",
+                    "5) Reflect on how mindful eating affects your overall well-being."
+                ]
+            },
+            {
+                title: "🚶 Day 3: Walking Meditation",
+                poetic: "Step by step, I walk with care,\nEach movement mindful, aware.\nThe earth beneath, the sky above,\nIn walking meditation, I find my love.",
+                practical: [
+                    "1) Choose a quiet place to walk slowly and attentively.",
+                    "2) Focus on the sensation of each step and your breath.",
+                    "3) If your mind wanders, gently bring it back to the present.",
+                    "4) Notice the sights, sounds, and smells around you.",
+                    "5) Conclude your walk with a moment of gratitude for the experience."
+                ]
+            },
+            {
+                title: "🧘 Day 4: Body Scan",
+                poetic: "From head to toe, I scan with care,\nNoticing sensations everywhere.\nTension melts, relaxation flows,\nIn body awareness, my peace grows.",
+                practical: [
+                    "1) Lie down or sit comfortably, closing your eyes.",
+                    "2) Bring attention to each part of your body, starting from the top of your head.",
+                    "3) Notice any areas of tension or discomfort without judgment.",
+                    "4) Breathe into these areas, allowing them to relax.",
+                    "5) Complete the scan by appreciating your body's sensations."
+                ]
+            },
+            {
+                title: "📵 Day 5: Digital Detox",
+                poetic: "Screens dim, the noise subsides,\nIn silence, my spirit resides.\nDisconnected, yet deeply whole,\nIn digital detox, I find my soul.",
+                practical: [
+                    "1) Set aside a specific time to disconnect from all digital devices.",
+                    "2) Engage in a non-digital activity you enjoy, such as reading or journaling.",
+                    "3) Notice how your mind and body respond to the absence of screens.",
+                    "4) Use this time to reconnect with yourself and your surroundings.",
+                    "5) Consider making digital detox a regular practice to enhance mindfulness."
+                ]
+            },
+            {
+                title: "📝 Day 6: Gratitude Journaling",
+                poetic: "In ink and paper, blessings flow,\nGratitude seeds begin to grow.\nEach word a thank you, each line a prayer,\nIn journaling, I find love and care.",
+                practical: [
+                    "1) Write down three things you're grateful for today.",
+                    "2) Be specific and detailed in your descriptions.",
+                    "3) Reflect on how these blessings impact your life.",
+                    "4) Revisit your entries when you need a boost of positivity.",
+                    "5) Use gratitude journaling to shift your focus to the present moment."
+                ]
+            },
+            {
+                title: "🕯️ Day 7: Focused Breathing",
+                poetic: "Inhale peace, exhale strife,\nBreath by breath, I embrace life.\nFocused breathing, calm and clear,\nIn every breath, I draw near.",
+                practical: [
+                    "1) Sit comfortably with your back straight.",
+                    "2) Close your eyes and bring attention to your breath.",
+                    "3) Inhale deeply through your nose, then exhale slowly through your mouth.",
+                    "4) If your mind wanders, gently bring it back to your breath.",
+                    "5) Practice for a few minutes, gradually increasing the duration."
+                ]
+            },
+            {
+                title: "🎨 Day 8: Creative Expression",
+                poetic: "Brush to canvas, pen to page,\nCreativity flows, releasing the cage.\nIn colors and words, I find my voice,\nIn creative expression, I rejoice.",
+                practical: [
+                    "1) Engage in a creative activity, such as drawing or writing.",
+                    "2) Focus on the process rather than the outcome.",
+                    "3) Allow yourself to express emotions and thoughts freely.",
+                    "4) Notice how creativity enhances your mindfulness.",
+                    "5) Make time for creative expression regularly to nourish your soul."
+                ]
+            },
+            {
+                title: "🌳 Day 9: Nature Connection",
+                poetic: "Leaves rustle, rivers flow,\nIn nature's embrace, I grow.\nThe earth beneath, the sky above,\nIn nature's arms, I find love.",
+                practical: [
+                    "1) Spend time outdoors, observing the natural world around you.",
+                    "2) Engage your senses by noticing the sights, sounds, and smells.",
+                    "3) Take a walk in a park or sit quietly under a tree.",
+                    "4) Reflect on how nature impacts your sense of peace.",
+                    "5) Consider incorporating regular nature time into your routine."
+                ]
+            },
+            {
+                title: "🌠 Day 10: Mindful Reflection",
+                poetic: "As the day ends, I pause to see,\nThe moments of joy, the lessons for me.\nIn mindful reflection, I find my way,\nTo live with purpose, each and every day.",
+                practical: [
+                    "1) Set aside time to reflect on your day in a quiet space.",
+                    "2) Recall moments of joy, challenges, and growth.",
+                    "3) Acknowledge your emotions without judgment.",
+                    "4) Express gratitude for the experiences of the day.",
+                    "5) Set an intention for the next day with mindfulness."
+                ]
+            }
+            
+        ];
+
+        const cardImages = [
+            "../img3/Sunny day-bro.svg",
+            "../img3/eating Korean food-cuate.svg",
+            "../img3/Dog walking-cuate.svg",
+            "../img3/Meditation-bro.svg",
+            "../img3/Woman reading-amico.svg",
+            "../img3//Bullet journal-bro.svg",
+            "../img3/Breathing exercise-amico.svg",
+            "../img3/Positive thinking-pana.svg",
+            "../img3/Journey-amico.svg",
+            "../img3/personal growth-bro.svg",
+        ];
+
+        function loadCards() {
+            cardContainer.innerHTML = '';
+            const startIndex = (currentPage - 1) * cardsPerPage;
+            const endIndex = Math.min(startIndex + cardsPerPage, daysData.length);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                const day = daysData[i];
+                const card = document.createElement("div");
+                card.classList.add("card");
+
+                // Use template literals with backticks here
+                card.innerHTML = `
+      <img src="${cardImages[i]}" alt="${day.title}">
+      <div class="card-text">${day.title}</div>
+      <button class="card-btn" onclick="showDay(${i})">Go</button>
+    `;
+
+                cardContainer.appendChild(card);
+            }
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(daysData.length / cardsPerPage);
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("button");
+                button.textContent = i;
+                button.disabled = i === currentPage;
+                button.onclick = () => {
+                    currentPage = i;
+                    loadCards();
+                };
+                paginationContainer.appendChild(button);
+            }
+        }
+
+        function showDay(index) {
+            const day = daysData[index];
+            dayTitle.textContent = day.title;
+            poeticText.textContent = day.poetic;
+            practicalNotes.innerHTML = day.practical.map(note => `<p>${note}</p>`).join("");
+            mainTitle.style.display = "none";
+            cardContainer.style.display = "none";
+            paginationContainer.style.display = "none";
+            dynamicContent.style.display = "block";
+            dayTitle.style.display = "block";
+            playBtn.style.display = "inline-block";
+            pauseBtn.style.display = "inline-block";
+            backBtn.style.display = "inline-block";
+        }
+
+        playBtn.onclick = () => {
+            const textToRead = `${poeticText.textContent} ${Array.from(practicalNotes.children).map(p => p.textContent).join(" ")}`;
+            if (speechSynthesisUtterance) speechSynthesis.cancel();
+            speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
+            speechSynthesis.speak(speechSynthesisUtterance);
+        };
+
+        pauseBtn.onclick = () => {
+            if (speechSynthesisUtterance) speechSynthesis.cancel();
+        };
+
+        backBtn.onclick = () => {
+            mainTitle.style.display = "block";
+            cardContainer.style.display = "grid";
+            paginationContainer.style.display = "flex";
+            dynamicContent.style.display = "none";
+            dayTitle.style.display = "none";
+            playBtn.style.display = "none";
+            pauseBtn.style.display = "none";
+            backBtn.style.display = "none";
+        };
+
+        loadCards();
+
+    </script>
+
+</body>
+
+</html>

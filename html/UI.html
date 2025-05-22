@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emotion Selector</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .emotion-box, .root-cause-box {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      cursor: pointer;
+      position: relative;
+      background-color: #fefefe;
+    }
+    .info-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      background: #eee;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    .release-method {
+      margin-top: 20px;
+      padding: 20px;
+      border: 2px solid #000;
+      background-color: #f9f9f9;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black with opacity */
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 600px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-section {
+      margin-bottom: 20px;
+    }
+
+    .modal-button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .modal-button.cancel {
+      background-color: #f44336;
+    }
+
+    /* Hover Effect Styles */
+    .description-hover {
+      display: none;
+      position: absolute;
+      top: 30px;
+      right: 0;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 200px;
+      z-index: 1;
+    }
+
+    .info-icon:hover .description-hover {
+      display: block;
+    }
+
+    /* Quiz Question Styles (Added without changing HTML) */
+    .quiz-question {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .quiz-options {
+      list-style-type: none;
+      padding: 0;
+    }
+    .quiz-options li {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #fefefe;
+      cursor: pointer;
+    }
+    .quiz-options li:hover {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="header-title">Select an Emotion</h1>
+    <div id="emotions"></div>
+  </div>
+
+  <!-- Modal for Release Method -->
+  <div id="releaseModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+
+      <!-- Release Method Section -->
+      <div id="release-section" class="modal-section" style="display: none;">
+        <h3>Release</h3>
+        <p><strong>Type:</strong> <span id="release-type"></span></p>
+        <p><strong>Description:</strong> <span id="release-description"></span></p>
+        <button id="letsgobtn" class="modal-button">Let's Go Activity</button>
+        <button id="cancelReleaseBtn" class="modal-button cancel">Cancel</button>
+      </div>
+
+      <!-- Fun Game Section -->
+      <div id="fun-game-section" class="modal-section" style="display: none;">
+        <h3>Release with Fun Game</h3>
+        <p><strong>Suggested Game:</strong> <span id="fun-game-name"></span></p>
+        <button id="letsgofunbtn" class="modal-button">Let's Go to Game</button>
+        <button id="cancelFunGameBtn" class="modal-button cancel">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const jsonFilePath = 'Root_Cause_of_Emotions.json'; // Replace with your actual JSON path
+
+    // Helper: returns true if every property value in the object is a string.
+    function isLeaf(obj) {
+      for (let key in obj) {
+        if (typeof obj[key] !== 'string') return false;
+      }
+      return true;
+    }
+
+    // Fetch JSON data and initialize UI.
+    fetch(jsonFilePath)
+      .then(response => response.json())
+      .then(data => {
+        displayEmotions(data);
+      })
+      .catch(error => console.error('Error fetching JSON file:', error));
+
+    // Display top-level emotions.
+    function displayEmotions(data) {
+      const emotionsContainer = document.getElementById('emotions');
+      emotionsContainer.innerHTML = '';
+
+      data.forEach(emotionObj => {
+        const emotion = Object.keys(emotionObj)[0];
+        const box = document.createElement('div');
+        box.className = 'emotion-box';
+        box.textContent = emotion;
+        // Pass the emotion's child array as both details and releaseParent.
+        box.onclick = () => {
+          document.getElementById('header-title').style.display = 'none';
+          displayDetails(emotionObj[emotion], emotion, emotionObj[emotion]);
+        };
+        emotionsContainer.appendChild(box);
+      });
+    }
+
+    /**
+     * displayDetails:
+     * - If details is an array with exactly one object that is a leaf (all values are strings),
+     *   then display each key as a leaf-level box with an info icon.
+     * - Otherwise, treat details as an intermediate level and display each object (except any with a release method key)
+     *   as a clickable box.
+     *
+     * The parameter releaseParent holds the intermediate array that includes the release method.
+     */
+    function displayDetails(details, parentKey, releaseParent) {
+      const container = document.getElementById('emotions');
+      container.innerHTML = `<h2>${parentKey}</h2>`;
+
+      if (Array.isArray(details)) {
+        // Leaf level: array has exactly one object that is a leaf.
+        if (details.length === 1 && isLeaf(details[0])) {
+          const leafObj = details[0];
+          for (let key in leafObj) {
+            const leafBox = document.createElement('div');
+            leafBox.className = 'root-cause-box';
+            leafBox.textContent = key;
+            // Create an info icon for this leaf-level detail.
+            const infoIcon = document.createElement('span');
+            infoIcon.className = 'info-icon';
+            infoIcon.textContent = 'i';
+            // Create a description hover effect for this leaf-level detail.
+            const descriptionHover = document.createElement('div');
+            descriptionHover.className = 'description-hover';
+            descriptionHover.textContent = leafObj[key];
+            infoIcon.appendChild(descriptionHover);
+            leafBox.appendChild(infoIcon);
+            // When a leaf-level box is clicked, search the releaseParent for a release method.
+            leafBox.onclick = () => {
+              const releaseObj = releaseParent.find(obj => {
+                const k = Object.keys(obj)[0].toLowerCase();
+                return k === "releasemethod" || k === "release method";
+              });
+              if (releaseObj) {
+                const releaseKey = Object.keys(releaseObj)[0];
+                displayReleaseMethod(releaseObj[releaseKey]);
+              } else {
+                document.getElementById('release-method').innerHTML = `<p>No Release Method available.</p>`;
+              }
+            };
+            container.appendChild(leafBox);
+          }
+        } else {
+          // Intermediate level: Filter out any object whose key (in lower case) is "releasemethod" or "release method".
+          const filtered = details.filter(obj => {
+            const k = Object.keys(obj)[0].toLowerCase();
+            return k !== "releasemethod" && k !== "release method";
+          });
+          filtered.forEach(obj => {
+            const key = Object.keys(obj)[0];
+            const box = document.createElement('div');
+            box.className = 'root-cause-box';
+            box.textContent = key;
+            box.onclick = () => {
+              // Pass the original intermediate array as releaseParent.
+              displayDetails(obj[key], key, details);
+            };
+            container.appendChild(box);
+          });
+        }
+      } else if (typeof details === 'object') {
+        // If details is an object with a "Type" property, it is a release method.
+        if (details.Type) {
+          displayReleaseMethod(details);
+        } else {
+          displayDetails([details], parentKey, [details]);
+        }
+      }
+    }
+
+    // Display the release method details in the modal.
+    function displayReleaseMethod(releaseDetails) {
+      const modal = document.getElementById('releaseModal');
+      const releaseSection = document.getElementById('release-section');
+      const funGameSection = document.getElementById('fun-game-section');
+      
+      // Reset both sections visibility
+      releaseSection.style.display = 'none';
+      funGameSection.style.display = 'none';
+
+      // If release method has type and description, show the release section
+      if (releaseDetails.Type && releaseDetails.Description) {
+        document.getElementById('release-type').textContent = releaseDetails.Type;
+        document.getElementById('release-description').textContent = releaseDetails.Description;
+        releaseSection.style.display = 'block';
+        
+        // Let's Go button behavior for activity
+        document.getElementById('letsgobtn').onclick = function() {
+          window.open(releaseDetails.Activity, '_blank'); // Navigate to the activity link
+        };
+      }
+
+      // If release method has suggested game, show the Fun Game section
+      if (releaseDetails.SuggestedGame) {
+        document.getElementById('fun-game-name').textContent = releaseDetails.SuggestedGame;
+        funGameSection.style.display = 'block';
+
+        // Let's Go button behavior for game
+        document.getElementById('letsgofunbtn').onclick = function() {
+          window.open(releaseDetails.GameLink, '_blank'); // Navigate to the game link
+        };
+      }
+
+      // Show the modal
+      modal.style.display = "block";
+    }
+
+    // Close the modal when the close button is clicked
+    const closeModal = document.getElementsByClassName("close")[0];
+    closeModal.onclick = function() {
+      const modal = document.getElementById('releaseModal');
+      modal.style.display = "none";
+    }
+
+    // Close the modal if the user clicks outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('releaseModal');
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Close the modal for cancel buttons
+    document.getElementById('cancelReleaseBtn').onclick = function() {
+      const modal = document.getElementById('releaseModal');
+      modal.style.display = "none";
+    };
+
+    document.getElementById('cancelFunGameBtn').onclick = function() {
+      const modal = document.getElementById('releaseModal');
+      modal.style.display = "none";
+    };
+  </script>
+</body>
+</html>

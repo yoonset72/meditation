@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleeping Resources</title>
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/sleepless_nights.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        #header-title {
+            text-align: center;
+            margin: 0 auto;
+            width: fit-content;
+            font-size: 24px;
+        }
+
+        #day-title {
+            margin-bottom: 20px;
+        }
+
+        .day-selector {
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 40%;
+            border-radius: 15px;
+            padding: 10px 10px 10px 20px;
+            cursor: pointer;
+            background-color: #fefefe;
+            font-size: 24px;
+        }
+
+        .day-selector:hover {
+            background-color: #e3e3e3;
+        }
+
+
+
+        .poem {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .notes p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <div class="logo"></div>
+            <a href="home.html">
+                <h2>Elysian</h2>
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="../html/home.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="../html/sound.html"><i class="fa-solid fa-music"></i> Sound</a></li>
+            <li><a href="MyJourney.html"><i class="fa-solid fa-flag"></i> My Journey</a></li>
+            <li><a href="setting.html"><i class="fas fa-user"></i> My Profile</a></li>
+            <li><a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+
+        <div class="upgrade">
+            <img src="../img2/Enthusiastic-pana.svg" alt="Upgrade Icon">
+            <p>Let's upgrade your plan</p>
+            <button>Upgrade</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Hi, Illiden!</h1><br>
+            <p>Let's help you stay on top of your health</p>
+        </div>
+
+        <div class="tasks">
+            <div class="wrapper">
+                <h2 id="header-title">Select Your Sleepless nights</h2>
+
+                <div id="day-selector">
+                    <div class="day-selector" onclick="showDay(0)"><span>🌙 1 Day</span></div>
+                    <div class="day-selector" onclick="showDay(1)"><span>🌘 2 Days</span></div>
+                    <div class="day-selector" onclick="showDay(2)"><span>🌑 3 Days</span></div>
+                    <div class="day-selector" onclick="showDay(3)"><span>🌌 4 Days</span></div>
+                    <div class="day-selector" onclick="showDay(4)"><span>🌠 More</span></div>
+                </div>
+
+                <div id="dynamic-content" style="display:none;">
+                    <h2 id="day-title"></h2>
+                    <div id="poetic-reflection">
+                        <p id="poetic-text" class="poem"></p>
+                    </div>
+                    <div id="practical-notes" class="notes"></div>
+
+                </div>
+
+                <div id="controls" style="display:none; margin: 0 0 0 470px;">
+                    <button id="play-btn"><i class="fa-solid fa-play"></i></button>
+                    <button id="pause-btn"><i class="fa-solid fa-pause"></i></button>
+                    <button id="back-btn"><i class="fa-solid fa-xmark"></i></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const playBtn = document.getElementById("play-btn");
+        const pauseBtn = document.getElementById("pause-btn");
+        const backBtn = document.getElementById("back-btn");
+        const dayTitle = document.getElementById("day-title");
+        const poeticText = document.getElementById("poetic-text");
+        const practicalNotes = document.getElementById("practical-notes");
+        const daySelector = document.getElementById("day-selector");
+        const headerTitle = document.getElementById("header-title");
+
+        let speechSynthesisUtterance;
+
+        const sleepReleaseMethods = [
+            {
+                title: "🌙 1 Day: Gentle Sleep Invitation",
+                poetic: "The night resists, yet softly I try,\nTo calm the mind, let restless thoughts fly.\nIn the cradle of quiet, sleep draws near,\nA whispered promise, tender and clear.",
+                practical: [
+                    "1) Practice a simple breathing exercise: inhale 4, hold 4, exhale 6.",
+                    "2) Dim your lights an hour before bed to ease into rest mode.",
+                    "3) Avoid stimulating content or screens at least 30 minutes before sleep.",
+                    "4) Sip warm herbal tea (like chamomile or lemon balm).",
+                    "5) Lie down and focus on relaxing each part of your body, starting from your toes."
+                ]
+            },
+            {
+                title: "🌘 2 Days: Easing into Stillness",
+                poetic: "Another night, another chance,\nTo slow the pulse, to soften stance.\nI meet the dark with steady grace,\nAnd rest in silence’s embrace.",
+                practical: [
+                    "1) Try progressive muscle relaxation — tense and release muscle groups from head to toe.",
+                    "2) Use aromatherapy with calming scents like lavender or sandalwood.",
+                    "3) Journal intrusive thoughts to release mental tension.",
+                    "4) Listen to soft ambient music or white noise.",
+                    "5) Visualize a peaceful, safe place — imagine every detail vividly."
+                ]
+            },
+            {
+                title: "🌑 3 Days : Soothing the Sleepless Mind",
+                poetic: "The body weeps for slumber’s balm,\nYet night’s cool hand can bring me calm.\nIn patient stillness I remain,\nA silent hush to ease the strain.",
+                practical: [
+                    "1) Take a warm bath or shower an hour before bed.",
+                    "2) Practice alternate nostril breathing (Nadi Shodhana) to calm the nervous system.",
+                    "3) Read a gentle, non-stimulating book under dim light.",
+                    "4) Focus on a slow mantra or affirmation (e.g., 'I am safe, I am calm, I will rest.').",
+                    "5) Avoid clock-watching — cover clocks and focus inward."
+                ]
+            },
+            {
+                title: "🌌 4 Days: Deep Rest Without Pressure",
+                poetic: "No sleep, yet still I rest,\nA weary soul does what is best.\nI honor what my body needs,\nAnd plant tonight restful seeds.",
+                practical: [
+                    "1) Shift from chasing sleep to inviting restful stillness.",
+                    "2) Use gentle, guided body scan meditations.",
+                    "3) Place a cool cloth over your eyes to reduce tension.",
+                    "4) Try mindful touch — gently massaging hands or temples.",
+                    "5) Accept wakefulness without frustration, resting the body without expectation."
+                ]
+            },
+            {
+                title: "🌠 5+ Days: Surrender & Self-Compassion",
+                poetic: "Endless nights stretch long and thin,\nYet light and rest reside within.\nI soften fear, release control,\nAnd trust sleep will soon console.",
+                practical: [
+                    "1) Seek gentle medical guidance or natural sleep aids (melatonin, herbal tinctures).",
+                    "2) Create a consistent nighttime wind-down routine, even if sleep doesn't come easily.",
+                    "3) Stay lightly active during the day — avoid naps and bright light at night.",
+                    "4) Listen to soft sleep stories or nature sounds.",
+                    "5) Offer yourself deep compassion; remind yourself that even resting wakefully is healing."
+                ]
+            }
+        ];
+
+        function showDay(index) {
+            const method = sleepReleaseMethods[index];
+            dayTitle.textContent = method.title;
+            poeticText.textContent = method.poetic;
+            practicalNotes.innerHTML = method.practical.map(note => `<p>${note}</p>`).join("");
+
+            // Hide selectors and header title
+            daySelector.style.display = "none";
+            headerTitle.style.display = "none";
+            document.getElementById("dynamic-content").style.display = "block";
+
+            // Ensure controls are displayed again for every day selected
+            const controls = document.getElementById("controls");
+            controls.style.display = "block";  // Make sure controls are visible
+
+            // Show the buttons every time a new day is selected
+            playBtn.style.display = "inline-block";
+            pauseBtn.style.display = "inline-block";
+            backBtn.style.display = "inline-block";
+        }
+
+        backBtn.onclick = () => {
+            // Reset to day selector view when going back
+            daySelector.style.display = "block";
+            headerTitle.style.display = "block";
+            document.getElementById("dynamic-content").style.display = "none";
+
+            // Hide the control buttons when going back
+            playBtn.style.display = "none";
+            pauseBtn.style.display = "none";
+            backBtn.style.display = "none";
+        };
+
+
+        playBtn.onclick = () => {
+            const textToRead = `${poeticText.textContent} ${Array.from(practicalNotes.children).map(p => p.textContent).join(" ")}`;
+            if (speechSynthesisUtterance) speechSynthesis.cancel();
+            speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
+            speechSynthesis.speak(speechSynthesisUtterance);
+        };
+
+        pauseBtn.onclick = () => {
+            if (speechSynthesisUtterance) speechSynthesis.cancel();
+        };
+
+        backBtn.onclick = () => {
+            daySelector.style.display = "block";
+            headerTitle.style.display = "block";
+            document.getElementById("dynamic-content").style.display = "none";
+
+            playBtn.style.display = "none";
+            pauseBtn.style.display = "none";
+            backBtn.style.display = "none";
+        };
+    </script>
+
+</body>
+
+</html>

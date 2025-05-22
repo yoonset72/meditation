@@ -1,0 +1,152 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f7f8fc;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Dashboard Layout */
+.dashboard {
+    width: 90%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    /* align-items: start; */
+    position: relative;
+}
+
+.stat-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* Card Styles */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    width: 30vh;
+
+}
+
+/* Profile Card */
+.profile-card {
+    background: linear-gradient(135deg, #a3d8ff, #e3f1ff);
+    padding: 25px;
+    border-radius: 15px;
+    width: 40vh;
+    margin-right: 5px; /* Reduce this value to decrease space */
+}
+
+
+/* Profile Image */
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+/* Status Section */
+.status {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-weight: bold;
+    margin-top: 10px;
+    
+}
+
+/* Large Stat Card */
+.stat-card-large {
+    font-size: 2.5rem; /* Make text bigger */
+    font-weight: bold;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+/* Overlapping Small Cards */
+.stat-card-small-container {
+    position: relative;
+}
+
+.stat-card-small {
+    position: absolute;
+    top: 0;
+    left: 50px; /* Adjust overlap */
+    width: 80%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card-small:nth-child(1) {
+    z-index: 2;
+    transform: translateY(-15px);
+}
+
+.stat-card-small:nth-child(2) {
+    z-index: 1;
+    transform: translateY(10px);
+}
+
+/* Chart Section */
+.chart-container {
+    width: 60%;
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    grid-column: span 4; /* Full width */
+
+}
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Responsive Design */
+/* @media (max-width: 1024px) {
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .chart-card {
+        grid-column: span 2;
+    }
+    .stat-card-small {
+        position: relative;
+        transform: none;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+    .chart-card {
+        grid-column: span 1;
+    }
+    .stat-card-small {
+        position: relative;
+        transform: none;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+} */

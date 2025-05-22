@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Meditation Tracker</title>
+</head>
+<body>
+
+  <div class="medicard stat-card"> 
+    <h3 id="totalTime">0 h 0 min</h3>
+    <img src="../img/chakras-animate.svg" alt="">
+    <p>Total Mediated Time</p>
+  </div>
+
+  <script>
+    // Get previous time or start from 0
+    let totalTime = parseInt(localStorage.getItem("totalTimeInMinutes")) || 0;
+    let startTime = Date.now();
+
+    // Update time display
+    function updateTimeDisplay() {
+      let hours = Math.floor(totalTime / 60);
+      let minutes = totalTime % 60;
+      document.getElementById("totalTime").textContent = `${hours} h ${minutes} min`;
+    }
+
+    updateTimeDisplay(); // Show on load
+
+    // Track every 1 minute
+    setInterval(() => {
+      totalTime += 1;
+      localStorage.setItem("totalTimeInMinutes", totalTime);
+      updateTimeDisplay();
+    }, 60000);
+
+    // Add any leftover time when user leaves
+    window.addEventListener("beforeunload", () => {
+      const elapsed = Math.floor((Date.now() - startTime) / 60000);
+      totalTime += elapsed;
+      localStorage.setItem("totalTimeInMinutes", totalTime);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+/* General Reset */
+
+@import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Averia Libre";
+}
+
+body {
+    display: flex;
+    background-color: #ffffff;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Move contents up */
+    position: fixed;
+}
+
+/* Brand Section */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 50px; /* Increased spacing below brand */
+    text-decoration: none;
+
+}
+.brand a {
+    text-decoration: none; /* Removes the underline */
+  }
+  
+  .brand h2 {
+    color: rgb(0, 0, 0); /* Sets the text color to red */
+    list-style: none; /* Not needed for h2, but harmless */
+  }
+
+.logo {
+    width: 30px;
+    height: 30px;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    width: 100%;
+    margin-top: 30px; /* Moves nav links a little bit lower */
+}
+
+.nav-links li {
+    margin-bottom: 20px; /* Increased spacing between nav links */
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #555;
+    font-size: 1em;
+    padding: 12px;
+    border-radius: 10px; /* Added border radius */
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.nav-links .active a, 
+.nav-links a:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #000;
+    font-weight: bold;
+    transform: scale(1.05); /* Slight hover effect */
+}
+
+.upgrade {
+    background: #B3C8CF;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .upgrade img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  
+  .upgrade p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .upgrade button {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .upgrade button:hover {
+    background-color: #8da0ab;
+  }
+  
+/* Main Content */
+.main-content {
+    margin-left: 220px;
+    padding: 40px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Section */
+.header {
+   
+    background: #8da0ab;
+    padding: 50px;
+    height: 50vh;
+    border-radius: 55px; /* Rounded corners */
+    text-align: left;
+    overflow-y: hidden;
+}
+
+/* Fullscreen Layout Section */
+.tasks {
+    position: absolute;
+  left: 57.2%; /* Shifted slightly to the right */
+  transform: translateX(-50%); /* Keeps it relatively centered */
+  flex-grow: 0;
+  margin-top: 20px;
+  background: #B3C8CF;
+  padding: 50px;
+  border-radius: 55px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  flex-direction: column;
+  width: 80.4%;
+  height: 75%;
+  top: 22%;
+}
+  
+.sound-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 3 items per row */
+    gap: 55px;
+    
+    margin-top: 30px;
+}
+
+.sound-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 250px;
+    height: 60px;
+    padding: 15px;
+    background-color: #ffffff; /* White background */
+    border: 2px solid #00000080;    /* Slightly gray border so it's visible */
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Optional: Add hover effect */
+.sound-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Style the icon and button inside */
+.sound-button i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.sound-button .play-pause {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+
+/* Sound Wave Animation */
+.sound-wave {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.sound-wave span {
+    display: block;
+    width: 5px;
+    height: 15px;
+    background-color: #333;
+    animation: wave 1.2s infinite ease-in-out;
+}
+
+.sound-wave span:nth-child(1) { animation-delay: 0s; }
+.sound-wave span:nth-child(2) { animation-delay: 0.2s; }
+.sound-wave span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes wave {
+    0%, 100% { height: 5px; }
+    50% { height: 15px; }
+}
+
+/* Hide waves when paused */
+.paused .sound-wave span {
+    animation: none;
+    height: 5px;
+}
+
+/* Play/Pause button */
+.play-pause {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}

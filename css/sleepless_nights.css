@@ -1,0 +1,47 @@
+/* Dynamic Content Section */
+#dynamic-content {
+  max-width: 600px;
+  background: rgb(255, 255, 255);
+  border-radius: 55px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 30px auto 20px auto;
+  display: none;
+}
+
+.poem {
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.notes {
+  text-align: left;
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+/* Play, Pause, and Back Buttons */
+#play-btn,
+#pause-btn,
+#back-btn {
+  display: none; /* Initially hidden (only for detail page) */
+}
+
+#play-btn,
+#pause-btn,
+#back-btn {
+  font-size: 18px;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#play-btn:hover,
+#pause-btn:hover,
+#back-btn:hover {
+  transform: scale(1.1);
+  background-color: #8da0ab;
+}

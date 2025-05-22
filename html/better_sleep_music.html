@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heal with Music</title>
+    <style>
+        /* General Reset */
+      
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            margin: 15px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #3b8c8c;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 15px;
+            color: #fff;
+            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Title -->
+    <h1>Heal with Music</h1>
+
+    <!-- Card Container -->
+    <div class="card-container">
+        <!-- Card 1: Bloom - ODESZA -->
+        <div class="card">
+            <iframe src="https://www.youtube.com/embed/fBMF1SOipck" title="Bloom – ODESZA (feat. Madelyn Grant)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="card-text">“Bloom” – ODESZA (feat. Madelyn Grant)</div>
+        </div>
+
+        <!-- Card 2: Breathe Me - Sia -->
+        <div class="card">
+            <iframe src="https://www.youtube.com/embed/oEZoqdZzjho" title="Breathe Me – Sia (Piano Version)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="card-text">“Breathe Me” – Sia (Piano Version)</div>
+        </div>
+
+        <!-- Card 3: Clair de Lune - Claude Debussy -->
+        <div class="card">
+            <iframe src="https://www.youtube.com/embed/WNcsUNKlAKw" title="Clair de Lune – Claude Debussy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="card-text">“Clair de Lune” – Claude Debussy</div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="btn-container">
+        <button class="back-btn" onclick="goBack()">🔙</button>
+    </div>
+
+    <script>
+        function goBack() {
+            // Logic to go back to the main page or previous section.
+            history.back(); // This will take the user to the previous page in the browser's history.
+        }
+    </script>
+</body>
+</html>

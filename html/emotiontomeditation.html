@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard UI</title>
+    <link rel="stylesheet" href="../css/emotiontomeditation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <div class="logo"></div>
+            <a href="home.html">
+                <h2>Elysian</h2>
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li class="">
+                <a href="../html/home.html">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li>
+                <a href="../html/sound.html">
+                    <i class="fa-solid fa-music"></i>Sound
+                </a>
+            </li>
+
+            <li>
+                <a href="MyJourney.html">
+                    <i class="fa-solid fa-flag"></i>My Journey
+                </a>
+            </li>
+            <li>
+                <a href="setting.html">
+                    <i class="fas fa-user"></i> My Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="upgrade">
+          <img src="../img2/Enthusiastic-pana.svg" alt="Upgrade Icon">
+          <p>Let's upgrade your plan</p>
+          <button>Upgrade</button>
+        </div>
+        
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Hi, Illiden! </h1><br>
+            <p>Let's help you stay on top of your health</p>
+            <!-- <div class="profile-info">
+                <p>Your wellness guide</p>
+                <span>Female, 21 years old</span>
+            </div> -->
+        </div>
+
+        <!-- Task Section -->
+        <div class="tasks">
+            <h2 id="header-title">Select Your Emotion</h2>
+            <div class="container">
+                <div id="emotions"></div>
+              </div>
+            
+              <!-- Modal for Release Method -->
+              <div id="releaseModal" class="modal">
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+            
+                  <!-- Release Method Section -->
+                  <div id="release-section" class="modal-section" style="display: none;">
+                    <h3>Recommanded Method</h3>
+                    <p><strong>Type:</strong> <span id="release-type"></span></p>
+                    <p><strong>Description:</strong> <span id="release-description"></span></p>
+                    <button id="letsgobtn" class="modal-button">Let's Go Activity</button>
+                    <button id="cancelReleaseBtn" class="modal-button cancel">Cancel</button>
+                  </div>
+            
+                  <!-- Fun Game Section -->
+                  <div id="fun-game-section" class="modal-section" style="display: none;">
+                    <h3>Sustain with Fun Game</h3>
+                    <p><strong>Suggested Game:</strong> <span id="fun-game-name"></span></p>
+                    <button id="letsgofunbtn" class="modal-button">Let's Go to Game</button>
+                    <button id="cancelFunGameBtn" class="modal-button cancel">Cancel</button>
+                  </div>
+                  <!-- Confirmation Modal -->
+                  <div id="confirmationModal" class="centered-modal">
+                    <div class="centered-modal-content">
+                      <p>Are you sure you want to cancel? &nbsp; <i class="fas fa-frown"></i> </p>
+                      <button id="confirmCancel" class="modal-button">Yes</button>
+                      <button id="dismissCancel" class="modal-button cancel">No</button>
+                    </div>
+                  </div>
+                  
+
+            
+                </div>
+              </div>
+
+        </div>
+
+
+    </div>
+    <script>
+        const jsonFilePath = '../js/Root Cause of Emotions.json'; // Replace with your actual JSON path
+    
+        // Helper: returns true if every property value in the object is a string.
+        function isLeaf(obj) {
+          for (let key in obj) {
+            if (typeof obj[key] !== 'string') return false;
+          }
+          return true;
+        }
+    
+        // Fetch JSON data and initialize UI.
+        fetch(jsonFilePath)
+          .then(response => response.json())
+          .then(data => {
+            displayEmotions(data);
+          })
+          .catch(error => console.error('Error fetching JSON file:', error));
+    
+        // Display top-level emotions.
+        function displayEmotions(data) {
+          const emotionsContainer = document.getElementById('emotions');
+          emotionsContainer.innerHTML = '';
+    
+          data.forEach(emotionObj => {
+            const emotion = Object.keys(emotionObj)[0];
+            const box = document.createElement('div');
+            box.className = 'emotion-box';
+            box.textContent = emotion;
+            // Pass the emotion's child array as both details and releaseParent.
+            box.onclick = () => {
+              document.getElementById('header-title').style.display = 'none';
+              displayDetails(emotionObj[emotion], emotion, emotionObj[emotion]);
+            };
+            emotionsContainer.appendChild(box);
+          });
+        }
+    
+        /**
+         * displayDetails:
+         * - If details is an array with exactly one object that is a leaf (all values are strings),
+         *   then display each key as a leaf-level box with an info icon.
+         * - Otherwise, treat details as an intermediate level and display each object (except any with a release method key)
+         *   as a clickable box.
+         *
+         * The parameter releaseParent holds the intermediate array that includes the release method.
+         */
+        function displayDetails(details, parentKey, releaseParent) {
+          const container = document.getElementById('emotions');
+          container.innerHTML = `<h2>${parentKey}</h2>`;
+    
+          if (Array.isArray(details)) {
+            // Leaf level: array has exactly one object that is a leaf.
+            if (details.length === 1 && isLeaf(details[0])) {
+              const leafObj = details[0];
+              for (let key in leafObj) {
+                const leafBox = document.createElement('div');
+                leafBox.className = 'root-cause-box';
+                leafBox.textContent = key;
+                // Create an info icon for this leaf-level detail.
+                const infoIcon = document.createElement('span');
+                infoIcon.className = 'info-icon';
+                infoIcon.textContent = 'i';
+                // Create a description hover effect for this leaf-level detail.
+                const descriptionHover = document.createElement('div');
+                descriptionHover.className = 'description-hover';
+                descriptionHover.textContent = leafObj[key];
+                infoIcon.appendChild(descriptionHover);
+                leafBox.appendChild(infoIcon);
+                // When a leaf-level box is clicked, search the releaseParent for a release method.
+                leafBox.onclick = () => {
+                  const releaseObj = releaseParent.find(obj => {
+                    const k = Object.keys(obj)[0].toLowerCase();
+                    return k === "releasemethod" || k === "release method";
+                  });
+                  if (releaseObj) {
+                    const releaseKey = Object.keys(releaseObj)[0];
+                    displayReleaseMethod(releaseObj[releaseKey]);
+                  } else {
+                    document.getElementById('release-method').innerHTML = `<p>No Release Method available.</p>`;
+                  }
+                };
+                container.appendChild(leafBox);
+              }
+            } else {
+              // Intermediate level: Filter out any object whose key (in lower case) is "releasemethod" or "release method".
+              const filtered = details.filter(obj => {
+                const k = Object.keys(obj)[0].toLowerCase();
+                return k !== "releasemethod" && k !== "release method";
+              });
+              filtered.forEach(obj => {
+                const key = Object.keys(obj)[0];
+                const box = document.createElement('div');
+                box.className = 'root-cause-box';
+                box.textContent = key;
+                box.onclick = () => {
+                  // Pass the original intermediate array as releaseParent.
+                  displayDetails(obj[key], key, details);
+                };
+                container.appendChild(box);
+              });
+            }
+          } else if (typeof details === 'object') {
+            // If details is an object with a "Type" property, it is a release method.
+            if (details.Type) {
+              displayReleaseMethod(details);
+            } else {
+              displayDetails([details], parentKey, [details]);
+            }
+          }
+        }
+    
+        // Display the release method details in the modal.
+        function displayReleaseMethod(releaseDetails) {
+          const modal = document.getElementById('releaseModal');
+          const releaseSection = document.getElementById('release-section');
+          const funGameSection = document.getElementById('fun-game-section');
+          
+          // Reset both sections visibility
+          releaseSection.style.display = 'none';
+          funGameSection.style.display = 'none';
+    
+          // If release method has type and description, show the release section
+          if (releaseDetails.Type && releaseDetails.Description) {
+            document.getElementById('release-type').textContent = releaseDetails.Type;
+            document.getElementById('release-description').textContent = releaseDetails.Description;
+            releaseSection.style.display = 'block';
+            
+            // Let's Go button behavior for activity
+            document.getElementById('letsgobtn').onclick = function() {
+              window.open(releaseDetails.Activity, '_blank'); // Navigate to the activity link
+            };
+          }
+    
+          // If release method has suggested game, show the Fun Game section
+          if (releaseDetails.SuggestedGame) {
+            document.getElementById('fun-game-name').textContent = releaseDetails.SuggestedGame;
+            funGameSection.style.display = 'block';
+    
+            // Let's Go button behavior for game
+            document.getElementById('letsgofunbtn').onclick = function() {
+              window.open(releaseDetails.GameLink, '_blank'); // Navigate to the game link
+            };
+          }
+    
+          // Show the modal
+          modal.style.display = "block";
+        }
+    
+        // Close the modal when the close button is clicked
+        const closeModal = document.getElementsByClassName("close")[0];
+        closeModal.onclick = function() {
+          const modal = document.getElementById('releaseModal');
+          modal.style.display = "none";
+        }
+    
+        // Close the modal if the user clicks outside of it
+        window.onclick = function(event) {
+          const modal = document.getElementById('releaseModal');
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        }
+    
+        // Close the modal for cancel buttons
+        document.getElementById('cancelReleaseBtn').onclick = function() {
+          const modal = document.getElementById('releaseModal');
+          modal.style.display = "none";
+        };
+    
+        document.getElementById('cancelFunGameBtn').onclick = function() {
+          const modal = document.getElementById('releaseModal');
+          modal.style.display = "none";
+        };
+
+        // Get confirmation modal elements
+const confirmationModal = document.getElementById('confirmationModal');
+const confirmCancelBtn = document.getElementById('confirmCancel');
+const dismissCancelBtn = document.getElementById('dismissCancel');
+
+// Show confirmation modal when "Cancel" buttons are clicked
+document.getElementById('cancelReleaseBtn').onclick = function() {
+  confirmationModal.style.display = "block";
+};
+
+document.getElementById('cancelFunGameBtn').onclick = function() {
+  confirmationModal.style.display = "block";
+};
+
+// If user confirms cancellation
+confirmCancelBtn.onclick = function() {
+  document.getElementById('releaseModal').style.display = "none";
+  confirmationModal.style.display = "none";
+};
+
+// If user dismisses the cancellation
+dismissCancelBtn.onclick = function() {
+  confirmationModal.style.display = "none";
+};
+
+// Close confirmation modal if user clicks outside
+window.onclick = function(event) {
+  if (event.target === confirmationModal) {
+    confirmationModal.style.display = "none";
+  }
+};
+// If user confirms cancellation
+confirmCancelBtn.onclick = function() {
+  // Redirect to main.html
+  window.location.href = "main.html";
+};
+
+
+      </script>
+</body>
+
+</html>

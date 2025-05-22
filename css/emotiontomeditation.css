@@ -1,0 +1,487 @@
+/* General Reset */
+
+@import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Averia Libre";
+}
+
+body {
+    display: flex;
+    background-color: #ffffff;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Move contents up */
+    position: fixed;
+}
+
+/* Brand Section */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 50px; /* Increased spacing below brand */
+    text-decoration: none;
+
+}
+.brand a {
+    text-decoration: none; /* Removes the underline */
+  }
+  
+  .brand h2 {
+    color: rgb(0, 0, 0); /* Sets the text color to red */
+    list-style: none; /* Not needed for h2, but harmless */
+  }
+
+.logo {
+    width: 30px;
+    height: 30px;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    width: 100%;
+    margin-top: 30px; /* Moves nav links a little bit lower */
+}
+
+.nav-links li {
+    margin-bottom: 20px; /* Increased spacing between nav links */
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #555;
+    font-size: 1em;
+    padding: 12px;
+    border-radius: 10px; /* Added border radius */
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.nav-links .active a, 
+.nav-links a:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #000;
+    font-weight: bold;
+    transform: scale(1.05); /* Slight hover effect */
+}
+
+.upgrade {
+  background: #B3C8CF;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.upgrade img {
+  width: 80px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.upgrade p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.upgrade button {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upgrade button:hover {
+  background-color: #8da0ab;
+}
+
+
+/* Main Content */
+.main-content {
+    margin-left: 220px;
+    padding: 40px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Section */
+.header {
+   
+  background: #8da0ab;
+  padding: 50px;
+    height: 40.6vh;
+    border-radius: 55px; /* Rounded corners */
+    text-align: left;
+    overflow-y: hidden;
+}
+
+/* Fullscreen Layout Section */
+.tasks {
+  position: absolute;
+  left: 57.2%; /* Shifted slightly to the right */
+  transform: translateX(-50%); /* Keeps it relatively centered */
+  flex-grow: 0;
+  margin-top: 20px;
+  background-color: #B3C8CF;
+  padding: 50px;
+  border-radius: 55px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  flex-direction: column;
+  width: 80.5%;
+  height: 73%;
+  top: 24%;
+}
+
+/* Center the task grid */
+/* Task Grid */
+
+.task-grid {
+    display: grid;
+    gap: 30px; /* Adjust the spacing between the cards */
+}
+
+/* Style for the list container */
+
+.emotion{
+  gap: 20px;
+}
+#header-title, #emotions h2 {
+  text-align: center;  /* Centers the text horizontally */
+  margin: 0 auto;  /* Ensures it's centered within the parent container */
+  width: fit-content;  /* Shrinks the width of the header to fit the content */
+  font-size: 24px;  /* Adjusts font size (optional) */
+}
+
+
+.emotion-box {
+  margin: 30px auto;  /* Centers the box horizontally and adds vertical margin */
+  display: block;  /* Ensures it behaves as a block element */
+  width: 40%;  /* Controls the width of the box */
+}
+
+.root-cause-box {
+  margin: 30px auto;  /* Centers the box horizontally and adds vertical margin */
+  display: block;  /* Ensures it behaves as a block element */
+  width: 40%;  /* Controls the width of the box */
+}
+
+.emotion-box, .root-cause-box {
+  border-radius: 15px;
+  padding: 10px 10px 10px 20px;
+  cursor: pointer;
+  position: relative;
+  background-color: #fefefe;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adds space between circle and text */
+}
+
+
+/* Add ABCDE circles before each item */
+.emotion-box::before, .root-cause-box::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;  /* Circle size */
+    height: 30px;
+    background-color: #ffffff; /* Blue circle */
+    color: rgb(0, 0, 0); /* White text */
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 50%; /* Makes it a circle */
+    text-align: center;
+    flex-shrink: 0;
+    border: 2px solid #000000;
+}
+
+/* Assign ABCDE labels separately */
+.emotion-box:nth-of-type(1)::before { content: "A"; }
+.emotion-box:nth-of-type(2)::before { content: "B"; }
+.emotion-box:nth-of-type(3)::before { content: "C"; }
+.emotion-box:nth-of-type(4)::before { content: "D"; }
+.emotion-box:nth-of-type(5)::before { content: "E"; }
+
+.root-cause-box:nth-of-type(1)::before { content: "A"; }
+.root-cause-box:nth-of-type(2)::before { content: "B"; }
+.root-cause-box:nth-of-type(3)::before { content: "C"; }
+.root-cause-box:nth-of-type(4)::before { content: "D"; }
+.root-cause-box:nth-of-type(5)::before { content: "E"; }
+
+  .info-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    background: #eee;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+  .release-method {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #000;
+    background-color: #f9f9f9;
+  }
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  border-radius: 30px;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  bottom: 20%;
+}
+
+.close {
+  color: #ffffff;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-section {
+  margin-bottom: 20px;
+  padding: 0px 20px 0px 20px;
+}
+
+.modal-section {
+  text-align: center; /* Center text and buttons */
+}
+
+.modal-section h3,
+.modal-section p {
+  margin-bottom: 10px; /* Adds space between text and buttons */
+  text-align: justify;
+}
+
+.modal-button {
+  padding: 10px 20px;
+  background-color: #8da0ab;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  margin: 10px; /* Adds spacing between buttons */
+  display: inline-block; /* Prevents full-width stretching */
+}
+
+.modal-button.cancel {
+  background-color: #ff7878;
+}
+
+.modal-button {
+padding: 10px 20px;
+background-color: #8da0ab;
+color: white;
+border: none;
+cursor: pointer;
+text-align: center;
+margin: 10px; /* Adds spacing between buttons */
+display: inline-block; /* Prevents full-width stretching */
+border-radius: 8px; /* Rounded corners */
+transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+/* Hover effect */
+.modal-button:hover {
+background-color: #6f8997; /* Darker shade for hover */
+transform: scale(1.05); /* Slightly enlarges button */
+}
+
+/* Active (click) effect */
+.modal-button:active {
+transform: scale(0.95); /* Slightly shrinks on click */
+}
+
+/* Cancel button styles */
+.modal-button.cancel {
+background-color: #ff7878;
+border-radius: 8px; /* Rounded corners for cancel button */
+transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+/* Hover effect for cancel button */
+.modal-button.cancel:hover {
+background-color: #e06666; /* Slightly darker red */
+}
+
+/* Active (click) effect for cancel button */
+.modal-button.cancel:active {
+transform: scale(0.95);
+}
+
+.centered-modal {
+display: none;
+position: fixed;
+z-index: 999;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+background: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+width: 90%; /* Ensures responsiveness */
+max-width: 400px; /* Restricts max width */
+height: auto; /* Adjusts height dynamically */
+}
+
+.centered-modal-content {
+text-align: center;
+}
+
+/* Add modal pop-up animation */
+@keyframes popup {
+  from {
+      transform: scale(0.7);
+      opacity: 0;
+  }
+  to {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+/* Apply animation when modal appears */
+.modal-content
+ {
+  animation: popup 0.3s ease-out;
+}
+
+/* Apply fix only to the confirmation modal */
+/* Add modal pop-up animation */
+@keyframes popup {
+  from {
+      transform: scale(0.7);
+      opacity: 0;
+  }
+  to {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+  /* Hover Effect Styles */
+  .description-hover {
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px;
+    width: 200px;
+    z-index: 1;
+  }
+
+  .info-icon:hover .description-hover {
+    display: block;
+  }
+
+  /* Quiz Question Styles (Added without changing HTML) */
+  .quiz-question {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .quiz-options {
+    list-style-type: none;
+    padding: 0;
+  }
+  .quiz-options li {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fefefe;
+    cursor: pointer;
+  }
+  .quiz-options li:hover {
+    background-color: #eee;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .task-grid {
+      grid-template-columns: 1fr; /* 1 item per row on small screens */
+    }
+  
+    .task-card {
+      width: 100%; /* Full width on small screens */
+      height: auto; /* Auto height for flexibility */
+      padding: 20px; /* Reduced padding for small screens */
+      align-items: center;
+      text-align: center;
+    }
+  
+    .task-card p {
+      max-width: 100%; /* Full width for text on small screens */
+    }
+  
+    .task-card .right-image {
+      position: static;
+      transform: none;
+      align-self: center;
+      margin-top: 15px; /* Increased margin for small screens */
+      width: 120px; /* Smaller image for small screens */
+      height: 120px; /* Smaller image for small screens */
+    }
+  }

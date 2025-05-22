@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Sleep</title>
+    <style>
+        /* General Reset */
+     
+        h1, h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            margin: 15px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color:#3b8c8c;
+        }
+
+        .card-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4);
+        }
+
+        #things-for-better-sleep {
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .play-btn, .pause-btn, .back-btn {
+            display: inline-block;
+            padding: 15px;
+            color: #fff;
+            background: linear-gradient(135deg, #ff7ebd, #ff758c);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .play-btn:hover, .pause-btn:hover, .back-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4);
+        }
+
+        ul {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        ul li {
+            margin: 10px 0;
+        }
+
+        .motivational-note {
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Title -->
+    <h1>Better Sleep</h1>
+
+    <!-- Card Container -->
+    <div id="card-container" class="card-container">
+        <!-- Card 1: Things for Better Sleep -->
+        <div class="card">
+            <img src="undraw_personal-notebook_blje.svg" alt="Things for Better Sleep">
+            <div class="card-text">Things for Better Sleep</div>
+            <button class="card-btn" onclick="showThingsForBetterSleep()">Go</button>
+        </div>
+
+        <!-- Card 2: Heal with Music -->
+        <div class="card">
+            <img src="undraw_happy-music_na4p.svg" alt="Heal with Music">
+            <div class="card-text">Heal with Music</div>
+            <button class="card-btn" onclick="location.href='better_sleep_music.html'">Go</button>
+        </div>
+    </div>
+
+    <!-- Things for Better Sleep Section -->
+    <div id="things-for-better-sleep">
+        <h2>Looking to improve your sleep long-term? Try these practices:</h2>
+        <ul>
+            <li>Set a consistent sleep schedule—even on weekends.</li>
+            <li>Limit screen time an hour before bed.</li>
+            <li>Create a calming pre-sleep routine (warm bath, dim lights, herbal tea).</li>
+            <li>Keep your bedroom cool, dark, and quiet.</li>
+            <li>Avoid caffeine late in the day.</li>
+            <li>Do light stretching or yoga before bed.</li>
+        </ul>
+        <p class="motivational-note">
+            💬 Motivational Note:<br>
+            You’re not just building better sleep—you’re nurturing a kinder relationship with yourself. These small habits you’re practicing? They’re acts of self-respect. Every night you show up for yourself, even in quiet, ordinary ways, you’re telling your nervous system it’s safe to relax. You don’t have to be perfect. You just have to be present. Keep trusting that your effort is creating change, even if you don’t feel it right away. Rest is not something you have to earn—you deserve it, simply because you exist. And tonight, you are allowed to feel good, to let go, and to drift into rest knowing that you are cared for.
+        </p>
+
+        <!-- Control Buttons -->
+        <div class="btn-container">
+            <button class="play-btn" onclick="playText()"><i class="fa-solid fa-play"></i></button>
+            <button class="pause-btn" onclick="pauseText()"><i class="fa-solid fa-pause"></i></button>
+            <button class="back-btn" onclick="goBack()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+
+
+    <script>
+        const cardContainer = document.getElementById("card-container");
+        const thingsForBetterSleep = document.getElementById("things-for-better-sleep");
+
+        let speechSynthesisUtterance;
+
+        function showThingsForBetterSleep() {
+            cardContainer.style.display = "none";
+            thingsForBetterSleep.style.display = "block";
+        }
+
+        function goBack() {
+            thingsForBetterSleep.style.display = "none";
+            cardContainer.style.display = "grid";
+        }
+
+        function playText() {
+            const textToRead = `
+                Looking to improve your sleep long-term? Try these practices:
+                Set a consistent sleep schedule—even on weekends.
+                Limit screen time an hour before bed.
+                Create a calming pre-sleep routine (warm bath, dim lights, herbal tea).
+                Keep your bedroom cool, dark, and quiet.
+                Avoid caffeine late in the day.
+                Do light stretching or yoga before bed.
+                Motivational Note:
+                You’re not just building better sleep—you’re nurturing a kinder relationship with yourself.
+                These small habits you’re practicing? They’re acts of self-respect.
+                Every night you show up for yourself, even in quiet, ordinary ways, you’re telling your nervous system it’s safe to relax.
+                You don’t have to be perfect. You just have to be present.
+                Keep trusting that your effort is creating change, even if you don’t feel it right away.
+                Rest is not something you have to earn—you deserve it, simply because you exist.
+                And tonight, you are allowed to feel good, to let go, and to drift into rest knowing that you are cared for.
+            `;
+
+            if (speechSynthesisUtterance) speechSynthesis.cancel();
+            speechSynthesisUtterance = new SpeechSynthesisUtterance(textToRead);
+            speechSynthesis.speak(speechSynthesisUtterance);
+        }
+
+        function pauseText() {
+            if (speechSynthesisUtterance) speechSynthesis.cancel();
+        }
+    </script>
+</body>
+</html>

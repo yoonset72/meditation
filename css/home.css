@@ -1,0 +1,177 @@
+@import url("https://fonts.googleapis.com/css2?family=Averia+Libre:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+/* General Styles */
+/* #D7BD6A */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Averia Libre";
+}
+
+body {
+  font-family: "Protest Riot", serif;
+  /* background: url('../img/sun.svg') ; */
+  /* background: linear-gradient(135deg, #D8BFD8, #E6E6FA); */
+  background: #B3C8CF ;
+  background-size: cover; 
+  color: #3d4040;
+  scroll-behavior: smooth;
+  background-attachment: fixed;
+  /* bottom: 100px; */
+}
+
+
+/* Navigation Bar */
+header {
+  padding: 15px 40px;
+  background: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+/* Use flexbox to structure the navbar */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+/* Logo on the far left */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Navigation links in the center */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 50px; /* Increase space between links */
+  justify-content: center; /* Center the nav links */
+  margin-left: 15px;
+  text-align: center;
+}
+
+.nav-links li {
+  display: inline;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Auth Buttons on the far right */
+.auth-buttons {
+  display: flex;
+  gap: 20px; /* Space between login/signup */
+  justify-content: flex-end;
+}
+
+.auth-buttons a {
+  text-decoration: none;
+  padding: 6px 12px; /* Slightly smaller buttons */
+  border-radius: 20px;
+  font-size: 14px; /* Reduce text size */
+}
+
+.login {
+  color: #333;
+}
+
+.signup {
+  background: black;
+  color: white;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-direction: column; /* Change to column layout */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 100vh;
+  padding: 100px;
+  text-align: center; /* Center text */
+  /* gap: 20px; Reduce space between elements */
+}
+
+
+.hero-image img {
+  width: 400px;
+}
+
+/* Adjust hero text width */
+.hero-text {
+  max-width: 60%;
+}
+
+.hero-text h1 {
+  font-size: 30px;
+  font-weight: bold;
+  
+}
+
+.highlight {
+  color: #ffffff;
+}
+
+.hero-text p {
+  font-size: 18px;
+  color: #555;
+  margin: 30px 0;
+}
+
+.buttons {
+  margin: 20px 0;
+}
+
+.btn {
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.black {
+  background: black;
+  color: white;
+}
+
+.light {
+  background: #ffffff;
+  color: black;
+  margin-left: 10px;
+}
+
+/* Users */
+.users {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.users img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+/* Hero Image */
+.hero-image img {
+  width: 400px;
+}
+
+.benefits{
+background-color: #ffffff;
+height: 50vh;
+}

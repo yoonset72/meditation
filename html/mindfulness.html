@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard UI</title>
+    <link rel="stylesheet" href="../css/emotiontomeditation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    /* Container for Content */
+    .center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 100px; /* Adjust this value to move it further down */
+}
+
+.quotecontainer {
+    background: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 55px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+    /* Quote Styling */
+    .quote {
+        font-size: 1.8rem;
+        font-weight: 300;
+        margin-bottom: 20px;
+    }
+
+    /* Author Styling */
+    .author {
+        font-size: 1rem;
+        margin-bottom: 30px;
+        font-style: italic;
+    }
+
+    /* Button Styling */
+    .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #fff;
+        background-color: #B3C8CF;
+        border: none;
+        border-radius: 25px;
+        text-decoration: none;  
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        background-color: #e4e4e4; /* Light gray on hover */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+        .quote {
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            font-size: 0.9rem;
+            padding: 10px 20px;
+        }
+    }
+</style>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <div class="logo"></div>
+            <a href="home.html">
+                <h2>Elysian</h2>
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li class="">
+                <a href="../html/home.html">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li>
+                <a href="../html/sound.html">
+                    <i class="fa-solid fa-music"></i>Sound
+                </a>
+            </li>
+
+            <li>
+                <a href="MyJourney.html">
+                    <i class="fa-solid fa-flag"></i>My Journey
+                </a>
+            </li>
+            <li>
+                <a href="setting.html">
+                    <i class="fas fa-user"></i> My Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="upgrade">
+            <img src="../img2/Enthusiastic-pana.svg" alt="Upgrade Icon">
+            <p>Let's upgrade your plan</p>
+            <button>Upgrade</button>
+        </div>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Hi, Illiden! </h1><br>
+            <p>Let's help you stay on top of your health</p>
+            <!-- <div class="profile-info">
+                <p>Your wellness guide</p>
+                <span>Female, 21 years old</span>
+            </div> -->
+        </div>
+
+        <!-- Task Section -->
+        <div class="tasks">
+            <div class="center-wrapper">
+                <div class="quotecontainer">
+                    <div class="quote">
+                        “Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.”
+                    </div>
+                    <div class="author">
+                        — Thich Nhat Hanh
+                    </div>
+                    <a href="10_days_challenges.html" class="btn">Get Started: 10 Days Challenges</a>
+                </div>
+
+            </div>
+
+
+        </div>
+
+</body>
+
+</html>

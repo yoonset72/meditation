@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <link rel="stylesheet" href="../css/login.css" />
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+  <main>
+    <div class="box">
+      <div class="inner-box">
+        <div class="forms-wrap">
+          <form method="post" autocomplete="off" class="sign-in-form">
+            <div class="logo">
+              <img src="../img/logo.png" class="logo" alt="" />
+              <h4>Elysian Mindfullness</h4>
+            </div>
+
+            <div class="heading">
+              <h2>Welcome Back</h2>
+              <h6>Not registred yet?</h6>
+              <a href="#" class="toggle">Sign up</a>
+            </div>
+
+            <div class="actual-form">
+              <div class="input-wrap">
+                <input type="text" id="login-email" name="email" minlength="4" class="input-field" autocomplete="off"
+                  required />
+                <label>Email</label>
+              </div>
+
+              <div class="input-wrap">
+                <input type="password" id="login-password" name="password" minlength="4" class="input-field"
+                  autocomplete="off" required />
+                <label>Password</label>
+              </div>
+
+              <input type="button" id="login" value="Sign In" class="sign-btn" />
+              <div id="login-result" style="text-align: center; color: red;"></div>
+
+              <!-- <p class="text">
+                Forgotten your password or you login details?
+                <a href="wellbeing.html">Get help</a> signing in.
+              </p> -->
+            </div>
+
+          </form>
+
+          <form method="post" autocomplete="off" class="sign-up-form">
+            <div class="logo">
+              <img src="../img/homeimg.png" alt="" />
+              <h4>Elysian</h4>
+            </div>
+
+            <div class="heading">
+              <h2>Get Started</h2>
+              <h6>Already have an account?</h6>
+              <a href="#" class="toggle">Sign in</a>
+            </div>
+
+            <div class="actual-form">
+              <div class="input-wrap">
+                <input type="text" id="signup-name" name="name" minlength="4" class="input-field" autocomplete="off"
+                  required />
+                <label>Name</label>
+              </div>
+
+              <div class="input-wrap">
+                <input type="email" id="signup-email" name="email" class="input-field" autocomplete="off" required />
+                <label>Email</label>
+              </div>
+
+              <div class="input-wrap">
+                <input type="password" id="signup-password" name="password" minlength="4" class="input-field"
+                  autocomplete="off" required />
+                <label>Password</label>
+              </div>
+
+              <input type="submit" id="signup" value="Sign Up" class="sign-btn" />
+              <div id="signup-result" style="text-align: center; color: red;"></div>
+
+
+                <!-- <p class="text">
+                  By signing up, I agree to the
+                  <a href="#">Terms of Services</a> and
+                  <a href="#">Privacy Policy</a>
+                </p> -->
+            </div>
+          </form>
+        </div>
+
+        <div class="carousel">
+          <div class="images-wrapper">
+            <img src="../img2/" class="image img-1 show" alt="" />
+            <img src="../img2/" class="image img-2" alt="" />
+            <img src="../img2/" class="image img-3" alt="" />
+          </div>
+
+          <div class="text-slider">
+            <div class="text-wrap">
+              <div class="text-group">
+                <h2>Welcome!</h2>
+                <h2>Invest your happiness.</h2>
+                <h2>Ready to go?</h2>
+              </div>
+            </div>
+
+            <div class="bullets">
+              <span class="active" data-value="1"></span>
+              <span data-value="2"></span>
+              <span data-value="3"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="../js/login.js">
+
+  </script>
+
+  <script>
+  $(document).ready(function () {
+
+  $('#login').click(function () {
+    var email = $('#login-email').val();
+    var password = $('#login-password').val();
+    
+    if (email.trim() === "" || password.trim() === "") {
+      $('#login-result').html('<div style="color: red; text-align: center;">Email and Password are required.</div>');
+      return;
+    }
+    
+    $.post('../app/login.php', { email: email, password: password }, function (data) {
+      $('#login-result').html(data);
+      alert(data);
+
+      if (data.trim() === "Login Successful!") {
+        const user = {
+          email: email,
+          name: "User Name"
+        };
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = "../app/home.html";
+      }
+    });
+  });
+  
+  $('#signup').click(function () {
+    var name = $('#signup-name').val();
+    var email = $('#signup-email').val();
+    var password = $('#signup-password').val();
+
+    if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
+      $('#signup-result').html('<div style="color: red; text-align: center;">All fields are required.</div>');
+      return;
+    }
+    
+    $.post('../app/signup.php', { name: name, email: email, password: password }, function (data) {
+      $('#signup-result').html(data);
+      alert(data);
+      
+      if (data.trim() === "Registration Successful!") {
+        const user = {
+          email: email,
+          name: name
+        };
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = "../app/home.php";
+      } else if (data.trim() === "Try again! Your email is already taken!") {
+        alert('Your email is already taken.');
+      }
+    });
+  });
+});
+
+
+  </script>
+
+
+</body>

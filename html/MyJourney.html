@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard UI</title>
+    <link rel="stylesheet" href="../css/MyJourney.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <div class="logo"></div>
+            <a href="home.html">
+                <h2>Elysian</h2>
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li class="">
+                <a href="main.html">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li>
+                <a href="sound.html">
+                    <i class="fa-solid fa-music"></i>Sound
+                </a>
+            </li>
+
+            <li>
+                <a href="MyJourney.html">
+                    <i class="fa-solid fa-flag"></i>My Journey
+                </a>
+            </li>
+            <li>
+                <a href="setting.html">
+                    <i class="fas fa-user"></i> My Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </li>
+
+        </ul>
+
+        <div class="upgrade">
+            <img src="../img2/Enthusiastic-pana.svg" alt="Upgrade Icon">
+            <p>Let's upgrade your plan</p>
+            <button>Upgrade</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Hi, Illiden! </h1><br>
+            <p>Here is Your Wellbeing Journey.</p>
+            <!-- <div class="profile-info">
+                <p>Your wellness guide</p>
+                <span>Female, 21 years old</span>
+            </div> -->
+            <!-- Profile Card -->
+            <!-- <div class="card profile-card">
+                    
+                    <h3>Illiden</h3>
+                    <p>ID: 000001 | 19 Years old</p>
+                    <div class="status">
+                        <span>🔥 1 Days</span>
+                        <span>🧘 Beginner</span>
+                    </div>
+                </div> -->
+        </div>
+
+        <!-- Task Section -->
+        <div class="tasks">
+
+            <div class="dashboard">
+                <!-- <div class="card profile-card">
+                   
+                    <h3>Illiden</h3>
+                    <p>ID: 000001 | 19 Years old</p>
+                    <div class="status">
+                        <span>🔥 1 Days</span>
+                        <span>🧘 Beginner</span>
+                    </div>
+                </div>  -->
+                <!-- Meditation Stats -->
+                <div class="medicard stat-card">
+                    <h3 id="totalTime">0 h 0 min</h3>
+                    <img src="../img/chakras-animate.svg" alt="">
+                    <p>Total Website Used</p>
+                </div>
+
+
+                <div class="stat-group">
+                    <div class="mindcard stat-card">
+                        <h3>Mindfulness</h3>
+                        <p>2</p>
+                        <p>Session Complete</p>
+                    </div>
+                    <div class="avgcard stat-card">
+                        <h3 id="avgPerDay">0 min</h3>
+                        <p>Average Duration Per Day</p>
+                    </div>
+
+                </div>
+
+
+                <!-- Emotional Focusing Chart -->
+                <div class="chart-container">
+                    <canvas id="lineChart"></canvas>
+                </div>
+
+                <div class="schedule-container">
+                    <div class="schedule-item">
+                        <span class="activity">
+                            Emotion to Meditation
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+
+
+                            <img src="../img/Mindfulness-bro.png" alt="" class="activity-img">
+                        </span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="activity">
+                            AI Guidance
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+
+
+
+
+                            <img src="../img/Chat bot-pana.png " alt="" class="activity-img">
+                        </span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="activity">
+                            Sleepless to Restful
+
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+
+
+
+                            <img src="../img/Floating-bro.png" alt="" class="activity-img">
+                        </span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="activity">
+                            Mindfulness
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+
+                            <img src="../img/Young and happy-bro.png" alt="" class="activity-img">
+                        </span>
+                    </div>
+                </div>
+
+                <div>
+                    Calendar
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <script>
+        // Get the canvas element
+        const ctx = document.getElementById('lineChart').getContext('2d');
+
+        // Data for the chart
+        const data = {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"], // X-axis labels (Months)
+            datasets: [
+
+                {
+                    label: "Social Media",
+                    data: [200, 300, 500, 700, 900, 1100, 1300],
+                    borderColor: "green",
+                    backgroundColor: "rgba(0, 255, 0, 0.1)",
+                    fill: true
+                },
+                {
+                    label: "Referral",
+                    data: [100, 150, 300, 400, 500, 700, 900],
+                    borderColor: "purple",
+                    backgroundColor: "rgba(128, 0, 128, 0.1)",
+                    fill: true
+                }
+            ]
+        };
+
+        // Chart Configuration
+        const config = {
+            type: "line",
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Months",
+                            font: { size: 14 }
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: "Visitors",
+                            font: { size: 14 }
+                        },
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: { position: "top" },
+                    tooltip: { enabled: true }
+                }
+            }
+        };
+
+        // Create the chart
+        new Chart(ctx, config);
+    </script>
+    <script>
+        // Load total time from localStorage or start at 0
+        let totalTime = parseInt(localStorage.getItem("totalTimeInMinutes")) || 0;
+        let startTime = Date.now();
+
+        // Function to update UI
+        function updateTimeDisplay() {
+            let hours = Math.floor(totalTime / 60);
+            let minutes = totalTime % 60;
+            document.getElementById("totalTime").textContent = `${hours} h ${minutes} min`;
+        }
+
+        updateTimeDisplay(); // Initial display
+
+        // Update every minute
+        setInterval(() => {
+            totalTime += 1; // +1 minute
+            localStorage.setItem("totalTimeInMinutes", totalTime);
+            updateTimeDisplay();
+        }, 60000); // Every 60 seconds
+    </script>
+    <script>
+        window.addEventListener("beforeunload", () => {
+            const elapsed = Math.floor((Date.now() - startTime) / 60000); // session duration in minutes
+            totalTime += elapsed;
+            localStorage.setItem("totalTimeInMinutes", totalTime);
+        });
+    </script>
+    
+    <script>
+        let totalMinutesMeditated = parseInt(localStorage.getItem("totalTimeInMinutes")) || 0;
+        let sessionStartTime = Date.now();
+
+        if (!localStorage.getItem("firstVisitDate")) {
+            localStorage.setItem("firstVisitDate", new Date().toISOString());
+        }
+
+        function updateTimeDisplay() {
+            let hours = Math.floor(totalMinutesMeditated / 60);
+            let minutes = totalMinutesMeditated % 60;
+            document.getElementById("totalTime").textContent = `${hours} h ${minutes} min`;
+
+            const firstVisit = new Date(localStorage.getItem("firstVisitDate"));
+            const today = new Date();
+            const daysUsed = Math.max(1, Math.floor((today - firstVisit) / (1000 * 60 * 60 * 24)));
+            const avgPerDay = Math.floor(totalMinutesMeditated / daysUsed);
+            document.getElementById("avgPerDay").textContent = `${avgPerDay} min`;
+        }
+
+        updateTimeDisplay();
+
+        setInterval(() => {
+            totalMinutesMeditated += 1;
+            localStorage.setItem("totalTimeInMinutes", totalMinutesMeditated);
+            updateTimeDisplay();
+        }, 60000);
+
+        window.addEventListener("beforeunload", () => {
+            const elapsed = Math.floor((Date.now() - sessionStartTime) / 60000);
+            totalMinutesMeditated += elapsed;
+            localStorage.setItem("totalTimeInMinutes", totalMinutesMeditated);
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>
